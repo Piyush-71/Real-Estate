@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Link, useNavigate } from 'react-router-dom'
 
-function SignUp() {
+export default function SignUp() {
   const [formData, setFormData] = useState({})
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -67,4 +67,3 @@ function SignUp() {
   )
 }
 
-export default SignUp
