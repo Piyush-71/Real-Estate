@@ -121,6 +121,21 @@ export default function Profile() {
     }
   }
 
+  const handleDeleteListing = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      })
+      const data = await res.json()
+      if (data.success === false) {
+        console.log(data.message)
+        return
+      }
+      setUserListings(userListings.filter((listing) => listing._id !== listingId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -173,10 +188,10 @@ export default function Profile() {
         Show Listings
       </button>
     <p className="text-red-700 mt-7">{ShowListingsError ? 'Error fetching listings' : ''}</p>
-    
+    {userListings && userListings.length > 0 &&
       <div className="flex flex-col gap-4">
-        <h1 className="text-center mt-7 text-2xl">Your Listings</h1>
-        {userListings && userListings.length > 0 && userListings.map((listing) => <div key={listing._id} className="border rounded-lg flex justify-between items-center p-3 gap-4">
+        <h1 className="text-center text-2xl">Your Listings</h1>
+        {userListings.map((listing) => <div key={listing._id} className="border rounded-lg flex justify-between items-center p-3 gap-4">
           <Link to={`/listing/${listing._id}`}>
             <img src={listing.imageUrls[0]} alt="Listing Cover" className="w-16 h-16 object-contain" />
           </Link>
@@ -184,12 +199,12 @@ export default function Profile() {
             <p>{listing.name}</p>
           </Link>
           <div className="flex flex-col items-center">
-            <button className="text-red-700 uppercase">Delete</button>
+            <button onClick={() => handleDeleteListing(listing._id)} className="text-red-700 uppercase">Delete</button>
             <button className="text-green-700 uppercase">Edit</button>
           </div>
         </div>
       )}
-      </div>
+      </div>}
     </div>
   )
 }
