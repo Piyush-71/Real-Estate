@@ -32,10 +32,12 @@ function Header() {
         </h1>
       </Link>
         <form onSubmit={handleSubmit} className='bg-slate-100 rounded-lg flex items-center'>
-          <input type='search' placeholder='Search' className='bg-transparent focus:outline-none w-24 sm:w-64' onChange={(e) => setSearchTerm(e.target.value)} value={searchTerm}/>
-          <button>
-            <FaSearch className='text-slate-600'/>
-          </button>
+          <div className='p-2'>
+            <input type='search' placeholder='Search' className='bg-transparent focus:outline-none w-24 sm:w-64' onChange={(e) => setSearchTerm(e.target.value)} value={searchTerm}/>
+            <button>
+              <FaSearch className='text-slate-600'/>
+            </button>
+          </div>
         </form>
         <ul className='flex gap-4'>
           <Link to={'/'}>
